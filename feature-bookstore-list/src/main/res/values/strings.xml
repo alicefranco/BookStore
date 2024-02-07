@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">PokeApp</string>
+    <string name="app_name">BookStore</string>
 
     <string name="pokemon_number_placeholder">#1</string>
     <string name="pokemon_name_placeholder">Bulbasaur</string>

@@ -9,7 +9,7 @@
     </style>
 
     <style name="SplashScreen" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:windowBackground">@drawable/layer_list_splash_screen</item>
+        <item name="android:windowBackground">@mipmap/ic_launcher</item>
         <item name="android:windowFullscreen">true</item>
     </style>
 </resources>

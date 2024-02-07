@@ -47,10 +47,10 @@ class BookListViewModelTest {
 
     @Test
     fun `get pokemons should return pokemons`() {
-        `when`(pokemonRepository.getPokemons(false, 0)).thenReturn(Single.just(pokemonsDomain))
-        pokeListViewModel.getPokemons(false)
+        `when`(pokemonRepository.getBooks(false, 0)).thenReturn(Single.just(pokemonsDomain))
+        pokeListViewModel.getBooks(false)
 
-        assertThat(pokeListViewModel.pokemons.value).isEqualTo(
+        assertThat(pokeListViewModel.books.value).isEqualTo(
             Result.Success(
                 expectedPokemonPresentation
             )
@@ -60,14 +60,14 @@ class BookListViewModelTest {
     @Test
     fun `get pokemons should return error`() {
         `when`(
-            pokemonRepository.getPokemons(
+            pokemonRepository.getBooks(
                 false,
                 0
             )
         ).thenReturn(Single.error(NetworkingError.ConnectionTimeout))
-        pokeListViewModel.getPokemons(false)
+        pokeListViewModel.getBooks(false)
 
-        assertThat(pokeListViewModel.pokemons.value).isEqualToComparingFieldByField(
+        assertThat(pokeListViewModel.books.value).isEqualToComparingFieldByField(
             Result.Error(
                 NetworkingError.ConnectionTimeout
             )

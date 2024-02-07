@@ -34,15 +34,15 @@ class BookDomainPresentationMapper {
         const val STEEL_TYPE = "steel"
     }
 
-    fun mapPokemonsToPresentation(
-        pokemons: List<Pokemon>
-    ): List<PokemonItem> {
-        return pokemons.map {
-            PokemonItem(
+    fun mapBooksToPresentation(
+        books: List<Book>
+    ): List<BookItem> {
+        return books.map {
+            BookItem(
                 itemType = ListItem.LIST_ITEM,
-                number = it.pokemonId.toString(),
-                name = it.pokemonName.capitalize(),
-                image = getDefaultPokemonImage(it.pokemonId)
+                image = it.image,
+                authors = it.authors,
+                title = it.title
             )
         }
     }

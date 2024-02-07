@@ -3,55 +3,55 @@ package pt.pprojects.bookstorelist.presentation.bookstorelist
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import pt.pprojects.domain.Result
 import pt.pprojects.bookstorelist.R
-import pt.pprojects.bookstorelist.databinding.ActivityPokelistBinding
+import pt.pprojects.bookstorelist.databinding.ActivityBooklistBinding
 import pt.pprojects.bookstorelist.presentation.gone
-import pt.pprojects.bookstorelist.presentation.model.PokemonItem
 import pt.pprojects.bookstorelist.presentation.bookdetails.BookDetailsActivity
+import pt.pprojects.bookstorelist.presentation.model.BookItem
 import pt.pprojects.bookstorelist.presentation.showDialog
 import pt.pprojects.bookstorelist.presentation.visible
 
 class BookListActivity : AppCompatActivity() {
 
-    private val pokeListViewModel: BookListViewModel by viewModel()
-    private lateinit var pokemonsAdapter: PokemonsAdapter
-    private val layoutManager = LinearLayoutManager(this)
+    private val bookListViewModel: BookListViewModel by viewModel()
+    private lateinit var bookAdapter: BookAdapter
+    private val layoutManager = GridLayoutManager(this, 2)
 
-    private lateinit var binding: ActivityPokelistBinding
+    private lateinit var binding: ActivityBooklistBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityPokelistBinding.inflate(layoutInflater)
+        binding = ActivityBooklistBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         setupRecycler()
 
-        pokeListViewModel.pokemons.observe(this) {
+        bookListViewModel.books.observe(this) {
             handleResult(it)
         }
 
-        getPokemons()
+        getBooks()
     }
 
     private fun setupRecycler() {
-        pokemonsAdapter = PokemonsAdapter(this)
-        pokemonsAdapter.addPokemonItemClick(pokemonItemClick)
-        pokemonsAdapter.addLoadMoreAction(loadMoreAction)
+        bookAdapter = BookAdapter(this)
+        bookAdapter.addBookItemClick(bookItemClick)
+        bookAdapter.addLoadMoreAction(loadMoreAction)
 
-        binding.rvPokemons.layoutManager = layoutManager
-        binding.rvPokemons.adapter = pokemonsAdapter
+        binding.rvBooks.layoutManager = layoutManager
+        binding.rvBooks.adapter = bookAdapter
     }
 
-    private fun handleResult(result: Result<List<PokemonItem>>) {
+    private fun handleResult(result: Result<List<BookItem>>) {
         when (result) {
             is Result.Success -> {
                 binding.pbListLoading.gone()
-                binding.rvPokemons.visible()
-                pokemonsAdapter.addPokemons(result.data, pokeListViewModel.loadedAll)
-                pokemonsAdapter.notifyDataSetChanged()
+                binding.rvBooks.visible()
+                bookAdapter.addBooks(result.data, bookListViewModel.loadedAll)
+                bookAdapter.notifyDataSetChanged()
             }
             is Result.Loading -> {
             }
@@ -69,7 +69,7 @@ class BookListActivity : AppCompatActivity() {
             title,
             message + getString(R.string.error_reload_message),
             positiveAction = {
-                getPokemons()
+                getBooks()
             },
             negativeAction = {
                 finish()
@@ -77,21 +77,21 @@ class BookListActivity : AppCompatActivity() {
         )
     }
 
-    private fun getPokemons() {
-        pokeListViewModel.getPokemons()
+    private fun getBooks() {
+        bookListViewModel.getBooks()
     }
 
-    private val pokemonItemClick: (pokemonId: Int) -> Unit = { pokemonId ->
-        openPokemonDetailsScreen(pokemonId)
+    private val bookItemClick: () -> Unit = {
+        openBookDetailsScreen()
     }
 
     private val loadMoreAction: () -> Unit = {
-        pokeListViewModel.getPokemons(false)
+        bookListViewModel.getBooks(false)
     }
 
-    private fun openPokemonDetailsScreen(pokemonId: Int) {
+    private fun openBookDetailsScreen() {
         val intent = Intent(this, BookDetailsActivity::class.java)
-        intent.putExtra(POKEMON_ID, pokemonId)
+//        intent.putExtra(POKEMON_ID)
         startActivity(intent)
     }
 

@@ -29,10 +29,10 @@ class BookRepositoryTest {
     fun `repository get pokemons should return pokemons`() {
         `when`(
             remoteDataSource
-                .getPokemons(0)
+                .getBooks(0)
         ).thenReturn(Single.just(pokemonsDomain))
 
-        val result = pokemonRepository.getPokemons(false, 0)
+        val result = pokemonRepository.getBooks(false, 0)
 
         assertThat(result).isEqualToComparingFieldByField(Single.just(expectedPokemonsDomain))
     }
@@ -41,10 +41,10 @@ class BookRepositoryTest {
     fun `repository get pokemons should return error`() {
         `when`(
             remoteDataSource
-                .getPokemons(0)
+                .getBooks(0)
         ).thenReturn(Single.error(NetworkingError.ConnectionTimeout))
 
-        val testObserver = pokemonRepository.getPokemons(false, 0).test()
+        val testObserver = pokemonRepository.getBooks(false, 0).test()
 
         testObserver
             .assertNoValues()

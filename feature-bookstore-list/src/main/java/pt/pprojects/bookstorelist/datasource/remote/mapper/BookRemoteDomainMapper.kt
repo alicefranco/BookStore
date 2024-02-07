@@ -14,15 +14,14 @@ class BookRemoteDomainMapper {
         const val MOVE_URL = "https://pokeapi.co/api/v2/move/"
     }
 
-    fun mapPokemonsToDomain(
-        pokemonsResponse: List<PokemonResponse>
-    ): List<Pokemon> {
-        return pokemonsResponse.map {
-            Pokemon(
-                pokemonId = getId(it.url,
-                    pt.pprojects.bookstorelist.datasource.remote.mapper.BookRemoteDomainMapper.Companion.POKEMON_URL
-                ),
-                pokemonName = it.name
+    fun mapBooksToDomain(
+        bookResponse: List<BookResponse>
+    ): List<Book> {
+        return bookResponse.map {
+            Book(
+                authors = it.volumeInfo.authors,
+                image = it.volumeInfo.imageLinks?.thumbnail ?: "",
+                title = it.volumeInfo.title
             )
         }
     }
@@ -70,7 +69,7 @@ class BookRemoteDomainMapper {
             typesList.add(
                 PokemonType(
                     typeId = getId(it.type.url,
-                        pt.pprojects.bookstorelist.datasource.remote.mapper.BookRemoteDomainMapper.Companion.TYPE_URL
+                        TYPE_URL
                     ),
                     typeName = it.type.name
                 )
@@ -87,7 +86,7 @@ class BookRemoteDomainMapper {
             abilitiesList.add(
                 PokemonAbility(
                     abiltiyId = getId(it.ability.url,
-                        pt.pprojects.bookstorelist.datasource.remote.mapper.BookRemoteDomainMapper.Companion.ABILITY_URL
+                        ABILITY_URL
                     ),
                     abilityName = it.ability.name,
                     isHidden = it.is_hidden
@@ -104,7 +103,7 @@ class BookRemoteDomainMapper {
             movesList.add(
                 PokemonMove(
                     moveId = getId(it.move.url,
-                        pt.pprojects.bookstorelist.datasource.remote.mapper.BookRemoteDomainMapper.Companion.MOVE_URL
+                        MOVE_URL
                     ),
                     moveName = it.move.name
                 )

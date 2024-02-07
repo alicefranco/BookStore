@@ -2,7 +2,10 @@ package pt.pprojects.bookstorelist.presentation
 
 import android.app.Activity
 import android.app.AlertDialog
+import android.content.Context
 import android.view.View
+import android.widget.ImageView
+import com.bumptech.glide.Glide
 import pt.pprojects.bookstorelist.R
 
 fun View.visible() {
@@ -34,5 +37,19 @@ fun Activity?.showDialog(
             negativeAction()
         }
         mAlertDialog.show()
+    }
+}
+
+fun ImageView.setOptionalImage(
+    resource: String?,
+    context: Context
+) {
+    resource?.let { resource ->
+        if (resource.isNotEmpty()) {
+            Glide.with(context)
+                .load(resource)
+                .placeholder(R.mipmap.ic_launcher_foreground)
+                .into(this)
+        }
     }
 }

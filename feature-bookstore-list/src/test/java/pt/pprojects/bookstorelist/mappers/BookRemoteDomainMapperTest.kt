@@ -16,7 +16,7 @@ class BookRemoteDomainMapperTest {
     @Test
     fun `should return domain pokemons list`() {
         val result = pokemonRemoteDomainMapper
-            .mapPokemonsToDomain(pokemonsResponse)
+            .mapBooksToDomain(pokemonsResponse)
 
         assertThat(result).isEqualTo(expectedPokemonsDomain)
     }
@@ -24,7 +24,7 @@ class BookRemoteDomainMapperTest {
     @Test
     fun `should return empty list`() {
         val result = pokemonRemoteDomainMapper
-            .mapPokemonsToDomain(pokemonsResponseEmpty)
+            .mapBooksToDomain(pokemonsResponseEmpty)
 
         assertThat(result).isEqualTo(emptyList<Pokemon>())
     }
@@ -38,11 +38,11 @@ class BookRemoteDomainMapperTest {
     }
 
     private val pokemonsResponse = listOf(
-        PokemonResponse(
+        BookResponse(
             name = "Charmander",
             url = "https://pokeapi.co/api/v2/pokemon/4/"
         ),
-        PokemonResponse(
+        BookResponse(
             name = "",
             url = "https://pokeapi.co/api/v2/pokemon/5"
         )
@@ -59,7 +59,7 @@ class BookRemoteDomainMapperTest {
         )
     )
 
-    private val pokemonsResponseEmpty = listOf<PokemonResponse>()
+    private val pokemonsResponseEmpty = listOf<BookResponse>()
 
     private val pokemonCharsResponse = PokemonCharacteristicsResponse(
             id = 4,

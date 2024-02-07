@@ -6,16 +6,20 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
+import pt.pprojects.bookstore.BuildConfig
+import pt.pprojects.bookstore.network.ConnectionCheck
 import pt.pprojects.network.ConnectionCheckInterface
 import pt.pprojects.network.RetrofitBuilder
 import pt.pprojects.network.error.NetworkingErrorMapper
 import pt.pprojects.network.manager.NetworkManager
 import pt.pprojects.network.manager.NetworkManagerInterface
-import pt.pprojects.bookstore.BuildConfig
-import pt.pprojects.bookstore.network.ConnectionCheck
+
 
 private const val NETWORKING_ERROR_MAPPER = "NETWORKING_ERROR_MAPPER"
 private const val HTTP_LOGGING_INTERCEPTOR = "HTTP_LOGGING_INTERCEPTOR"
+private const val HTTP_LOGGING_INTERCEPTOR_WITH_API_KEY = "HTTP_LOGGING_INTERCEPTOR_WITH_API_KEY"
+private const val KEY = "key"
+private const val API_KEY = "AIzaSyD_vRLHUBkowVKAM653SLCMweJ_Ykw1gl0"
 
 val networkModule = module {
     single<ConnectionCheckInterface> { ConnectionCheck(get()) }
@@ -49,9 +53,19 @@ val networkModule = module {
         }
     }
 
+    factory<Interceptor>(named(HTTP_LOGGING_INTERCEPTOR_WITH_API_KEY)) {
+        Interceptor { chain ->
+            var request = chain.request()
+            val url = request.url.newBuilder().addQueryParameter(KEY, API_KEY).build()
+            request = request.newBuilder().url(url).build()
+            chain.proceed(request)
+        }
+    }
+
     factory {
         OkHttpClient.Builder()
             .addInterceptor(get<Interceptor>(named(HTTP_LOGGING_INTERCEPTOR)))
+            .addInterceptor(get<Interceptor>(named(HTTP_LOGGING_INTERCEPTOR_WITH_API_KEY)))
             .build()
     }
 

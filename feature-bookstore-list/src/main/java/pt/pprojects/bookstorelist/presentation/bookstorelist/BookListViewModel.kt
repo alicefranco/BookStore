@@ -8,7 +8,7 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable
 import pt.pprojects.bookstorelist.domain.usecase.BooksUseCase
 import pt.pprojects.domain.Result
 import pt.pprojects.bookstorelist.presentation.mapper.BookDomainPresentationMapper
-import pt.pprojects.bookstorelist.presentation.model.PokemonItem
+import pt.pprojects.bookstorelist.presentation.model.BookItem
 
 class BookListViewModel(
     private val scheduler: Scheduler,
@@ -19,30 +19,32 @@ class BookListViewModel(
 
     private val PAGE_SIZE = 20
     private val START_OFFSET = 0
-    private val TOTAL_POKEMONS = 984
+    private val TOTAL_POKEMONS = 692
 
     private var offset = START_OFFSET
 
     var loadedAll = false
 
-    private val mutablePokemons =
-        MutableLiveData<Result<List<PokemonItem>>>()
-    val pokemons: LiveData<Result<List<PokemonItem>>>
-        get() = mutablePokemons
+    private val mutableBooks =
+        MutableLiveData<Result<List<BookItem>>>()
+    val books: LiveData<Result<List<BookItem>>>
+        get() = mutableBooks
 
-    fun getPokemons(refresh: Boolean = false) {
+    fun getBooks(refresh: Boolean = false) {
         if (offset < TOTAL_POKEMONS) {
             val disposable = booksUseCase.execute(refresh, offset)
                 .subscribeOn(scheduler)
-                .doOnSubscribe { mutablePokemons.postValue(Result.Loading) }
-                .map<Result<List<PokemonItem>>> { pokemons ->
+                .doOnSubscribe { mutableBooks.postValue(Result.Loading) }
+                .map<Result<List<BookItem>>> { books ->
                     updateOffset()
                     Result.Success(
-                        bookMapper.mapPokemonsToPresentation(pokemons)
+                        bookMapper.mapBooksToPresentation(books)
                     )
                 }
-                .onErrorReturn { err -> Result.Error(err) }
-                .subscribe(mutablePokemons::postValue)
+                .onErrorReturn {
+                    err -> Result.Error(err)
+                }
+                .subscribe(mutableBooks::postValue)
 
             compositeDisposable.add(disposable)
         }

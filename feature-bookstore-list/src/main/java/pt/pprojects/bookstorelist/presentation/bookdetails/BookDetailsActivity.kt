@@ -3,19 +3,19 @@ package pt.pprojects.bookstorelist.presentation.bookdetails
 import android.os.Bundle
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import pt.pprojects.domain.Result
 import pt.pprojects.bookstorelist.R
-import pt.pprojects.bookstorelist.databinding.ActivityPokemonDetailsBinding
+import pt.pprojects.bookstorelist.databinding.ActivityBookDetailsBinding
 import pt.pprojects.bookstorelist.presentation.model.PokemonDetails
 import pt.pprojects.bookstorelist.presentation.bookstorelist.BookListActivity
 import pt.pprojects.bookstorelist.presentation.gone
 import pt.pprojects.bookstorelist.presentation.model.DetailItem
 import pt.pprojects.bookstorelist.presentation.model.PokemonImagesResources
 import pt.pprojects.bookstorelist.presentation.model.TypeItem
+import pt.pprojects.bookstorelist.presentation.setOptionalImage
 import pt.pprojects.bookstorelist.presentation.showDialog
 import pt.pprojects.bookstorelist.presentation.visible
 
@@ -23,11 +23,11 @@ class BookDetailsActivity : AppCompatActivity() {
     private val pokemonDetailsViewModel: BookDetailsViewModel by viewModel()
     private var pokemonId: Int? = null
 
-    private lateinit var binding: ActivityPokemonDetailsBinding
+    private lateinit var binding: ActivityBookDetailsBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityPokemonDetailsBinding.inflate(layoutInflater)
+        binding = ActivityBookDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         pokemonId = intent.getIntExtra(BookListActivity.POKEMON_ID, 1)
@@ -75,9 +75,9 @@ class BookDetailsActivity : AppCompatActivity() {
     private fun setPokemonDetails(details: PokemonDetails) {
         setImageWithGlide(binding.ivPokemon, details.images.frontDefault)
 
-        setOptionalImage(binding.ivFemale, binding.clFemale, details.images.frontFemale)
-        setOptionalImage(binding.ivShiny, binding.clMaleShiny, details.images.frontShiny)
-        setOptionalImage(binding.ivFemaleShiny, binding.clFemaleShiny, details.images.frontFemaleShiny)
+        binding.ivFemale.setOptionalImage(details.images.frontFemale, this)
+        binding.ivShiny.setOptionalImage(details.images.frontShiny, this)
+        binding.ivFemaleShiny.setOptionalImage(details.images.frontFemaleShiny, this)
 
         setGenders(details.pokemonNumber, details.images)
 
@@ -93,20 +93,6 @@ class BookDetailsActivity : AppCompatActivity() {
 
         binding.pbPokemonDetails.gone()
         binding.layoutPokemonDetails.visible()
-    }
-
-    private fun setOptionalImage(
-        imageView: ImageView,
-        imageContainer: ConstraintLayout,
-        resource: String?
-    ) {
-        resource?.let {
-            if (resource.isNotEmpty()) {
-                setImageWithGlide(imageView, it)
-                binding.clOthers.visible()
-                imageContainer.visible()
-            }
-        }
     }
 
     private fun setGenders(pokemonNumber: String, images: PokemonImagesResources) {
@@ -170,7 +156,7 @@ class BookDetailsActivity : AppCompatActivity() {
     private fun setImageWithGlide(imageView: ImageView, resource: String) {
         Glide.with(this)
             .load(resource)
-            .placeholder(R.drawable.ic_pokemon_placeholder)
+            .placeholder(R.mipmap.ic_launcher_foreground)
             .into(imageView)
     }
 

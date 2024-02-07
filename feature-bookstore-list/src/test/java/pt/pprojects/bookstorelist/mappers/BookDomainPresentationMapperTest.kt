@@ -18,7 +18,7 @@ class BookDomainPresentationMapperTest {
     @Test
     fun `should return domain pokemons list`() {
         val result = pokemonDomainPresentationMapper
-            .mapPokemonsToPresentation(pokemonsDomain)
+            .mapBooksToPresentation(pokemonsDomain)
 
         assertThat(result).isEqualTo(expectedPokemonsPresentation)
     }
@@ -26,7 +26,7 @@ class BookDomainPresentationMapperTest {
     @Test
     fun `should return empty list`() {
         val result = pokemonDomainPresentationMapper
-            .mapPokemonsToPresentation(pokemonsDomainEmpty)
+            .mapBooksToPresentation(pokemonsDomainEmpty)
 
         assertThat(result).isEqualTo(emptyList<PokemonItem>())
     }
