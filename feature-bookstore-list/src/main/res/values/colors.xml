@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorSplash">#FF0000</color>
+    <color name="colorPrimary">#3660A6</color>
+    <color name="colorPrimaryLight">#7192DE</color>
+    <color name="colorPrimaryDark">#1D3459</color>
+    <color name="colorAccent">#5F9894</color>
+
+    <color name="colorLightGrey">#8E8E8E</color>
+    <color name="colorDarkGrey">#4C4C4C</color>
+POK
+    <color name="colorDivider">#787878</color>
+
+    <color name="colorWhite">#FFFFFF</color>
+</resources>
