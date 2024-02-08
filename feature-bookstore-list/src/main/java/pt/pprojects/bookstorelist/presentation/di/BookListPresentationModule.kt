@@ -19,9 +19,7 @@ val bookListPresentationModule = module {
 
     viewModel {
         BookDetailsViewModel(
-            scheduler = get(),
-            pokemonCharacteristicsUseCase = get(),
-            pokemonMapper = get()
+            //favoritesUseCase = get(),
         )
     }
 }

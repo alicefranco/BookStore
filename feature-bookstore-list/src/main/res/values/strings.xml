@@ -1,39 +1,21 @@
 <resources>
     <string name="app_name">BookStore</string>
 
-    <string name="pokemon_number_placeholder">#1</string>
-    <string name="pokemon_name_placeholder">Bulbasaur</string>
-    <string name="pokemon_detail_placeholder">Detail</string>
-    <string name="pokemon_basexp_placeholder">178</string>
-    <string name="pokemon_height_placeholder">0.7m</string>
-    <string name="pokemon_weight_placeholder">6.9kg</string>
-    <string name="pokemon_type_placeholder">FIRE</string>
-    <string name="pokemon_type_unknown">UNKNOWN</string>
+    <string name="content_title_label">TITLE</string>
+    <string name="content_author_label">AUTHOR</string>
+    <string name="content_description_label">DESCRIPTION</string>
 
-    <string name="content_description_header_logo">Header logo</string>
-    <string name="content_description_close_button">Screen close button</string>
-    <string name="content_description_pokemon_image">Pokemon image</string>
-    <string name="content_description_image_female">Pokemon female form image</string>
-    <string name="content_description_image_shiny">Pokemon shiny form image</string>
-    <string name="content_description_image_female_shiny">Pokemon shiny female form image</string>
-    <string name="content_description_image_gender_female">Pokemon female gender image</string>
-    <string name="content_description_image_gender_male">Pokemon male gender image</string>
-    <string name="content_description_image_gender_male_shiny">Pokemon shiny male gender image</string>
-    <string name="content_description_image_gender_female_shiny">Pokemon shiny female gender image</string>
-    <string name="content_description_image_type1">Pokemon type one image</string>
-    <string name="content_description_image_type2">Pokemon type two image</string>
-    <string name="content_description_image_type_unknown">Pokemon type unknown image</string>
-    <string name="content_description_dot_item">Icon for abilities and moves items</string>
+    <string name="content_title">Title</string>
+    <string name="content_author">Author</string>
+    <string name="content_description">Description</string>
+    <string name="content_buy_link">Buy</string>
 
-    <string name="label_basexp">BASE XP</string>
-    <string name="label_weight">WEIGHT</string>
-    <string name="label_height">HEIGHT</string>
-    <string name="label_moves">MOVES</string>
-    <string name="label_abilities">ABILITIES</string>
+    <string name="button_close_desc">Close button</string>
+    <string name="button_favorite_desc">Favorite button</string>
+    <string name="image_desc">Image</string>
 
     <string name="button_yes">YES</string>
     <string name="button_no">NO</string>
-
     <string name="error_title">Sorry! Error occurred.. </string>
     <string name="error_reload_message">\n\nDo you want try reloading again?</string>
 </resources>

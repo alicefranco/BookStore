@@ -2,6 +2,7 @@ plugins {
     id(PluginIds.ANDROID_APPLICATION)
     id(PluginIds.KOTLIN_ANDROID)
     id(PluginIds.KTLINT_ANDROID)
+    id(PluginIds.KAPT)
 }
 
 base.archivesBaseName = "bookstore-app-${AppConfig.VERSION_NAME}"
@@ -78,6 +79,10 @@ dependencies {
     implementation(Libraries.RETROFIT)
     implementation(Libraries.RETROFIT_CONVERTER_GSON)
     implementation(Libraries.RETROFIT_RX_JAVA_ADAPTER)
+
+    implementation(Libraries.ROOM_RUNTIME)
+    implementation(Libraries.ROOM_RX_JAVA)
+    kapt(Libraries.ROOM_COMPILER)
 
     implementation(Libraries.OKHTTP)
     implementation(Libraries.OKHTTP_LOGGER)

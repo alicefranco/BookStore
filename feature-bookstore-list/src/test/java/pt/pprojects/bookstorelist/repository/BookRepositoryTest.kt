@@ -56,7 +56,7 @@ class BookRepositoryTest {
     fun `repository get pokemon characteristics should return pokemon characteristics`() {
         `when`(
             remoteDataSource
-                .getPokemonCharacteristics(pokemonCharsDomain.pokemonId)
+                .getBookDetails(pokemonCharsDomain.pokemonId)
         ).thenReturn(Single.just(pokemonCharsDomain))
 
         val result = pokemonRepository.getPokemonCharacteristics(
@@ -71,7 +71,7 @@ class BookRepositoryTest {
     fun `repository get pokemon characteristics should return error`() {
         `when`(
             remoteDataSource
-                .getPokemonCharacteristics(pokemonCharsDomain.pokemonId)
+                .getBookDetails(pokemonCharsDomain.pokemonId)
         ).thenReturn(Single.error(NetworkingError.ConnectionTimeout))
 
         val testObserver = pokemonRepository.getPokemonCharacteristics(

@@ -23,6 +23,9 @@ object Versions {
     const val OKHTTP = "4.12.0"
     const val RETROFIT = "2.9.0"
 
+    //DATABASE
+    const val ROOM = "2.6.1"
+
     //DEPENDENCY INJECTION
     const val KOIN = "3.5.3"
 }

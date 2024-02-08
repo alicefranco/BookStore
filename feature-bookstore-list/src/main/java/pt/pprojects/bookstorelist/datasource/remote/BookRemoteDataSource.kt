@@ -6,7 +6,6 @@ import pt.pprojects.network.manager.NetworkManagerInterface
 import pt.pprojects.bookstorelist.datasource.remote.mapper.BookRemoteDomainMapper
 import pt.pprojects.bookstorelist.datasource.remote.service.BookService
 import pt.pprojects.bookstorelist.domain.model.Book
-import pt.pprojects.bookstorelist.domain.model.PokemonCharacteristics
 
 class BookRemoteDataSource(
     private val networkManager: NetworkManagerInterface,
@@ -21,16 +20,6 @@ class BookRemoteDataSource(
                 )
                 .map {
                     bookMapper.mapBooksToDomain(it.items)
-                }
-        )
-    }
-
-    override fun getPokemonCharacteristics(pokemonId: Int): Single<PokemonCharacteristics> {
-        return networkManager.performAndReturnsData(
-            bookService
-                .getPokemonCharacteristics(pokemonId)
-                .map {
-                    bookMapper.mapPokemonCharacteristicsToDomain(it)
                 }
         )
     }

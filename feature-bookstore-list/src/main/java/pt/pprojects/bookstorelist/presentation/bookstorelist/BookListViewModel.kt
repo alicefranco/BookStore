@@ -32,7 +32,7 @@ class BookListViewModel(
 
     fun getBooks(refresh: Boolean = false) {
         if (offset < TOTAL_POKEMONS) {
-            val disposable = booksUseCase.execute(refresh, offset)
+            val disposable = booksUseCase.getBooks(offset)
                 .subscribeOn(scheduler)
                 .doOnSubscribe { mutableBooks.postValue(Result.Loading) }
                 .map<Result<List<BookItem>>> { books ->

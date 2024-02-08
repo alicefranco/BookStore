@@ -1,7 +1,16 @@
 package pt.pprojects.bookstorelist.domain.model
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity
 data class Book(
-    var authors: List<String>,
-    var title: String,
-    var image: String
+    @PrimaryKey
+    val id: String,
+    val authors: List<String>,
+    val title: String,
+    val description: String,
+    val image: String,
+    val buyLink: String,
+    val favourite: Boolean = false
 )

@@ -7,6 +7,7 @@ import pt.pprojects.bookstorelist.domain.repository.BookRepositoryInterface
 val bookListDataModule = module {
     single<BookRepositoryInterface> {
         BookRepository(
+            cacheDataSource = get(),
             remoteDataSource = get()
         )
     }

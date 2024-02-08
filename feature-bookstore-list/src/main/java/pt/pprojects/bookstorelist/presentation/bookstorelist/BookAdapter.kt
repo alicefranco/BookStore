@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import pt.pprojects.bookstorelist.databinding.ItemBookBinding
 import pt.pprojects.bookstorelist.databinding.ItemLoadMoreBinding
+import pt.pprojects.bookstorelist.domain.model.Book
 import pt.pprojects.bookstorelist.presentation.model.BookItem
 import pt.pprojects.bookstorelist.presentation.model.ListItem
 import pt.pprojects.bookstorelist.presentation.setOptionalImage
@@ -17,7 +18,7 @@ class BookAdapter(private val context: Context) : RecyclerView.Adapter<RecyclerV
     private var listItems: List<ListItem> = listOf()
     private val loadingItem = ListItem(ListItem.LOADING_ITEM)
 
-    private var bookItemClick: () -> Unit = {}
+    private var bookItemClick: (book: Book) -> Unit = {}
     private var loadMoreAction: () -> Unit = {}
     private var finished: Boolean = false
 
@@ -42,7 +43,7 @@ class BookAdapter(private val context: Context) : RecyclerView.Adapter<RecyclerV
         }
     }
 
-    fun addBookItemClick(itemClickAction: () -> Unit) {
+    fun addBookItemClick(itemClickAction: (book: Book) -> Unit) {
         bookItemClick = itemClickAction
     }
 
@@ -92,11 +93,22 @@ class BookAdapter(private val context: Context) : RecyclerView.Adapter<RecyclerV
 
     class ViewHolderBookItem(private val binding: ItemBookBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(context: Context, book: BookItem, itemClick: () -> Unit) {
+        fun bind(context: Context, book: BookItem, itemClick: (book: Book) -> Unit) {
 
             binding.ivBook.setOptionalImage(book.image, context)
 
-            binding.layoutItemBook.setOnClickListener { itemClick() }
+            binding.layoutItemBook.setOnClickListener {
+                itemClick(
+                    Book(
+                        authors = book.authors,
+                        title = book.title,
+                        description = book.description,
+                        image = book.image,
+                        buyLink = book.buyLink,
+                        id = book.id
+                    )
+                )
+            }
         }
     }
 

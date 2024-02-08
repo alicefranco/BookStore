@@ -8,6 +8,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import pt.pprojects.domain.Result
 import pt.pprojects.bookstorelist.R
 import pt.pprojects.bookstorelist.databinding.ActivityBooklistBinding
+import pt.pprojects.bookstorelist.domain.model.Book
 import pt.pprojects.bookstorelist.presentation.gone
 import pt.pprojects.bookstorelist.presentation.bookdetails.BookDetailsActivity
 import pt.pprojects.bookstorelist.presentation.model.BookItem
@@ -81,21 +82,29 @@ class BookListActivity : AppCompatActivity() {
         bookListViewModel.getBooks()
     }
 
-    private val bookItemClick: () -> Unit = {
-        openBookDetailsScreen()
+    private val bookItemClick: (book: Book) -> Unit = { book ->
+        openBookDetailsScreen(book)
     }
 
     private val loadMoreAction: () -> Unit = {
         bookListViewModel.getBooks(false)
     }
 
-    private fun openBookDetailsScreen() {
+    private fun openBookDetailsScreen(book: Book) {
         val intent = Intent(this, BookDetailsActivity::class.java)
-//        intent.putExtra(POKEMON_ID)
+        intent.putExtra(BOOK_AUTHOR, book.authors.first())
+        intent.putExtra(BOOK_TITLE, book.title)
+        intent.putExtra(BOOK_DESCRIPTION, book.description)
+        intent.putExtra(BOOK_BUY_LINK, book.buyLink)
+        intent.putExtra(BOOK_IMAGE, book.image)
         startActivity(intent)
     }
 
     companion object {
-        const val POKEMON_ID = "POKEMON_ID"
+        const val BOOK_TITLE = "BOOK_TITLE"
+        const val BOOK_AUTHOR = "BOOK_AUTHOR"
+        const val BOOK_DESCRIPTION = "BOOK_DESCRIPTION"
+        const val BOOK_BUY_LINK = "BOOK_BUY_LINK"
+        const val BOOK_IMAGE = "BOOK_IMAGE"
     }
 }

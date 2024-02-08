@@ -4,9 +4,10 @@ import android.app.Application
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 import pt.pprojects.bookstore.di.appModule
+import pt.pprojects.bookstore.di.databaseModule
 import pt.pprojects.bookstore.di.networkModule
 import pt.pprojects.bookstorelist.data.di.bookListDataModule
-import pt.pprojects.bookstorelist.datasource.di.pokeListDatasourceModule
+import pt.pprojects.bookstorelist.datasource.di.bookListDatasourceModule
 import pt.pprojects.bookstorelist.domain.di.bookListDomainModule
 import pt.pprojects.bookstorelist.presentation.di.bookListPresentationModule
 
@@ -24,8 +25,9 @@ class BookStoreApp : Application() {
                 listOf(
                     appModule,
                     networkModule,
+                    databaseModule,
                     bookListDataModule,
-                    pokeListDatasourceModule,
+                    bookListDatasourceModule,
                     bookListDomainModule,
                     bookListPresentationModule
                 )

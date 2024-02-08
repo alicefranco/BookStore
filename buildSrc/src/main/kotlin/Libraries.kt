@@ -33,6 +33,12 @@ object Libraries {
     const val RETROFIT_CONVERTER_GSON = "com.squareup.retrofit2:converter-gson:${Versions.RETROFIT}"
     const val RETROFIT_RX_JAVA_ADAPTER = "com.squareup.retrofit2:adapter-rxjava3:${Versions.RETROFIT}"
 
+    //DATABASE
+
+    const val ROOM_RUNTIME = "androidx.room:room-runtime:${Versions.ROOM}"
+    const val ROOM_COMPILER = "androidx.room:room-compiler:${Versions.ROOM}"
+    const val ROOM_RX_JAVA = "androidx.room:room-rxjava3:${Versions.ROOM}"
+
     //DEPENDENCY INJECTION
     const val KOIN = "io.insert-koin:koin-android:${Versions.KOIN}"
 }

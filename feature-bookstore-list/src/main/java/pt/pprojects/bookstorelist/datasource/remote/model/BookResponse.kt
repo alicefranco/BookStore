@@ -1,5 +1,7 @@
 package pt.pprojects.bookstorelist.datasource.remote.model
 
 data class BookResponse(
-    val volumeInfo: VolumeInfoResponse
+    val id: String,
+    val volumeInfo: VolumeInfoResponse? = null,
+    val saleInfo: SaleInfoResponse? = null
 )
