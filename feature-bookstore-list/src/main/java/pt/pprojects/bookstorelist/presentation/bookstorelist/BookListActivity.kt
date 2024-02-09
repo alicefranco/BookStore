@@ -35,6 +35,16 @@ class BookListActivity : AppCompatActivity() {
         }
 
         getBooks()
+
+        binding.fabFavorites.setOnClickListener {
+            if (bookListViewModel.toggleFavorites) {
+                binding.fabFavorites.setImageResource(R.drawable.ic_heart)
+                getFavouriteBooks()
+            } else {
+                binding.fabFavorites.setImageResource(R.drawable.ic_heart_fill)
+                getBooks()
+            }
+        }
     }
 
     private fun setupRecycler() {
@@ -49,16 +59,15 @@ class BookListActivity : AppCompatActivity() {
     private fun handleResult(result: Result<List<BookItem>>) {
         when (result) {
             is Result.Success -> {
-                binding.pbListLoading.gone()
+                binding.clListLoading.gone()
                 binding.rvBooks.visible()
-                bookAdapter.addBooks(result.data, bookListViewModel.loadedAll)
+                bookAdapter.addBooks(result.data, !bookListViewModel.loadedAll, !bookListViewModel.toggleFavorites)
                 bookAdapter.notifyDataSetChanged()
             }
             is Result.Loading -> {
+                binding.clListLoading.visible()
             }
-            is Result.Error -> {
-                showErrorDialog(getString(R.string.error_title), result.cause.message)
-            }
+            is Result.Error -> { showErrorDialog(getString(R.string.error_title), result.cause.message) }
         }
     }
 
@@ -82,12 +91,16 @@ class BookListActivity : AppCompatActivity() {
         bookListViewModel.getBooks()
     }
 
+    private fun getFavouriteBooks() {
+        bookListViewModel.getFavouriteBooks()
+    }
+
     private val bookItemClick: (book: Book) -> Unit = { book ->
         openBookDetailsScreen(book)
     }
 
     private val loadMoreAction: () -> Unit = {
-        bookListViewModel.getBooks(false)
+        bookListViewModel.getBooks()
     }
 
     private fun openBookDetailsScreen(book: Book) {

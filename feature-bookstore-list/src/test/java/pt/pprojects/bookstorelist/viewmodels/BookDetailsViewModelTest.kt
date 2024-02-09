@@ -19,9 +19,6 @@ import pt.pprojects.bookstorelist.domain.model.PokemonType
 import pt.pprojects.bookstorelist.domain.repository.BookRepositoryInterface
 import pt.pprojects.bookstorelist.domain.usecase.BookDetailsUseCase
 import pt.pprojects.bookstorelist.presentation.mapper.BookDomainPresentationMapper
-import pt.pprojects.bookstorelist.presentation.model.PokemonDetails
-import pt.pprojects.bookstorelist.presentation.model.PokemonImagesResources
-import pt.pprojects.bookstorelist.presentation.model.TypeItem
 import pt.pprojects.bookstorelist.presentation.bookdetails.BookDetailsViewModel
 
 class BookDetailsViewModelTest {

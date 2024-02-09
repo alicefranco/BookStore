@@ -8,7 +8,7 @@ import pt.pprojects.bookstorelist.domain.model.Book
 interface BooksUseCaseInterface {
     fun getBook(id: String): Maybe<Book>
     fun getBooks(params: Int): Single<List<Book>>
-    fun getFavoriteBooks(params: Int): Single<List<Book>>
+    fun getFavoriteBooks(): Single<List<Book>>
     fun markAsFavourite(book: Book): Completable
     fun removeFavourite(book: Book): Completable
 }

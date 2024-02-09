@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true">
@@ -24,7 +25,9 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layout_details"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="0dp">
 
             <Button
                 android:id="@+id/bt_buy"
@@ -34,11 +37,11 @@
                 android:background="@drawable/bg_button"
                 android:text="@string/content_buy_link"
                 android:textColor="@color/colorWhite"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/iv_book"
-                android:visibility="gone"/>
+                app:layout_constraintTop_toBottomOf="@+id/iv_book" />
 
             <ImageView
                 android:id="@+id/iv_close"
@@ -70,12 +73,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:text="@string/content_author_label"
                 android:textColor="@color/colorLightGrey"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_title_label" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_title" />
 
             <TextView
                 android:id="@+id/tv_title_label"
@@ -97,20 +100,24 @@
                 android:text="@string/content_author"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_author_label"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.014"
                 app:layout_constraintStart_toEndOf="@+id/tv_author_label"
-                app:layout_constraintTop_toTopOf="@+id/tv_author_label" />
+                app:layout_constraintTop_toTopOf="@+id/tv_author_label"
+                app:layout_constraintVertical_bias="0.0" />
 
             <TextView
                 android:id="@+id/tv_title"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="72dp"
+                android:layout_marginEnd="16dp"
                 android:text="@string/content_title"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/tv_author_label"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.023"
                 app:layout_constraintStart_toEndOf="@+id/tv_title_label"
-                app:layout_constraintTop_toTopOf="@+id/tv_title_label"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintTop_toTopOf="@+id/tv_title_label" />
 
             <TextView
                 android:id="@+id/tv_description"
@@ -138,7 +145,7 @@
                 android:contentDescription="@string/button_favorite_desc"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_heart"/>
+                app:srcCompat="@drawable/ic_heart" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

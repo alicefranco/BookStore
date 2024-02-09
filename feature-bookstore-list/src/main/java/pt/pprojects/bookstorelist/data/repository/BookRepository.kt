@@ -20,7 +20,7 @@ class BookRepository(
         return remoteDataSource.getBooks(startIndex)
     }
 
-    override fun getFavouriteBooks(startIndex: Int): Single<List<Book>> {
+    override fun getFavouriteBooks(): Single<List<Book>> {
         return cacheDataSource.getFavouriteBooks()
     }
 

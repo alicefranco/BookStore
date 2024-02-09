@@ -8,8 +8,8 @@
 
     <color name="colorLightGrey">#8E8E8E</color>
     <color name="colorDarkGrey">#4C4C4C</color>
-POK
     <color name="colorDivider">#787878</color>
-
     <color name="colorWhite">#FFFFFF</color>
+
+    <color name="translucentDarkGrey">#4C4C4C00</color>
 </resources>

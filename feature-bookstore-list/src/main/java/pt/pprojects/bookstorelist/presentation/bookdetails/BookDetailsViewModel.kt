@@ -23,7 +23,7 @@ class BookDetailsViewModel(
         val disposable = booksUseCase.getBook(id)
             .subscribeOn(scheduler)
             .doOnEvent { book, throwable ->
-                var isFavourite = book?.let { true } ?: false
+                val isFavourite = book?.let { true } ?: false
                 mutableIsFavourite.postValue(isFavourite)
             }
             .subscribe()

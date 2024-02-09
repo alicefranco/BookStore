@@ -10,7 +10,6 @@ class BookDomainPresentationMapper {
     ): List<BookItem> {
         return books.map {
             BookItem(
-                itemType = ListItem.LIST_ITEM,
                 id = it.id,
                 image = it.image,
                 authors = it.authors,

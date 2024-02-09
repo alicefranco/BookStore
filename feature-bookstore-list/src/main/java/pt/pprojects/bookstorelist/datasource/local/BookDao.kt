@@ -15,7 +15,7 @@ interface BookDao {
     @Query("SELECT * FROM book WHERE id = :id")
     fun getBook(id: String): Maybe<Book>
 
-    @Query("SELECT * FROM book WHERE favourite = true")
+    @Query("SELECT * FROM book")
     fun getFavouriteBooks(): Single<List<Book>>
 
     @Insert

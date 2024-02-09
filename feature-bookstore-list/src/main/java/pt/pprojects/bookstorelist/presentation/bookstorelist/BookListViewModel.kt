@@ -19,40 +19,65 @@ class BookListViewModel(
 
     private val PAGE_SIZE = 20
     private val START_OFFSET = 0
-    private val TOTAL_POKEMONS = 692
+    private val TOTAL_BOOKS = 692
 
     private var offset = START_OFFSET
 
     var loadedAll = false
 
-    private val mutableBooks =
+    private var listBooks: MutableList<BookItem> = mutableListOf()
+
+    private var resultMutableBooks =
         MutableLiveData<Result<List<BookItem>>>()
     val books: LiveData<Result<List<BookItem>>>
-        get() = mutableBooks
+        get() = resultMutableBooks
 
-    fun getBooks(refresh: Boolean = false) {
-        if (offset < TOTAL_POKEMONS) {
+    var toggleFavorites = true
+
+    fun getBooks() {
+        toggleFavorites = true
+        if (offset < TOTAL_BOOKS) {
             val disposable = booksUseCase.getBooks(offset)
                 .subscribeOn(scheduler)
-                .doOnSubscribe { mutableBooks.postValue(Result.Loading) }
+                .doOnSubscribe { resultMutableBooks.postValue(Result.Loading) }
                 .map<Result<List<BookItem>>> { books ->
                     updateOffset()
-                    Result.Success(
-                        bookMapper.mapBooksToPresentation(books)
-                    )
+                    val bookItems = bookMapper.mapBooksToPresentation(books)
+                    listBooks.addAll(bookItems)
+                    Result.Success(listBooks)
                 }
                 .onErrorReturn {
                     err -> Result.Error(err)
                 }
-                .subscribe(mutableBooks::postValue)
+                .subscribe(resultMutableBooks::postValue)
 
             compositeDisposable.add(disposable)
         }
     }
 
+    fun getFavouriteBooks() {
+        toggleFavorites = false
+        val disposable = booksUseCase.getFavoriteBooks()
+            .subscribeOn(scheduler)
+            .doOnSubscribe { resultMutableBooks.postValue(Result.Loading) }
+            .map<Result<List<BookItem>>> { books ->
+                updateOffset()
+                Result.Success(
+                    bookMapper.mapBooksToPresentation(books)
+                )
+            }
+            .onErrorReturn {
+                    err -> Result.Error(err)
+            }
+            .subscribe(resultMutableBooks::postValue)
+
+        compositeDisposable.add(disposable)
+
+    }
+
     private fun updateOffset() {
         offset += PAGE_SIZE
-        if (offset == TOTAL_POKEMONS)
+        if (offset == TOTAL_BOOKS)
             loadedAll = true
     }
 

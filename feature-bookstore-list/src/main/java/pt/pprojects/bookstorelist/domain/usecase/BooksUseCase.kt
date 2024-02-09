@@ -17,8 +17,8 @@ class BooksUseCase(
         return bookRepository.getBooks(params)
     }
 
-    override fun getFavoriteBooks(params: Int): Single<List<Book>> {
-        return bookRepository.getFavouriteBooks(params)
+    override fun getFavoriteBooks(): Single<List<Book>> {
+        return bookRepository.getFavouriteBooks()
     }
     override fun markAsFavourite(book: Book): Completable {
         return bookRepository.markAsFavourite(book)

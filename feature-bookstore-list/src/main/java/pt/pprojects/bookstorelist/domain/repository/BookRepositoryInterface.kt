@@ -8,7 +8,7 @@ import pt.pprojects.bookstorelist.domain.model.Book
 interface BookRepositoryInterface {
     fun getBook(id: String): Maybe<Book>
     fun getBooks(startIndex: Int): Single<List<Book>>
-    fun getFavouriteBooks(startIndex: Int): Single<List<Book>>
+    fun getFavouriteBooks(): Single<List<Book>>
 
     fun markAsFavourite(book: Book): Completable
     fun removeFavourite(book: Book): Completable
