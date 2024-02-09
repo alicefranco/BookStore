@@ -94,6 +94,7 @@ class BookListActivity : AppCompatActivity() {
         val intent = Intent(this, BookDetailsActivity::class.java)
         intent.putExtra(BOOK_AUTHOR, book.authors.first())
         intent.putExtra(BOOK_TITLE, book.title)
+        intent.putExtra(BOOK_ID, book.id)
         intent.putExtra(BOOK_DESCRIPTION, book.description)
         intent.putExtra(BOOK_BUY_LINK, book.buyLink)
         intent.putExtra(BOOK_IMAGE, book.image)
@@ -101,6 +102,7 @@ class BookListActivity : AppCompatActivity() {
     }
 
     companion object {
+        const val BOOK_ID = "BOOK_ID"
         const val BOOK_TITLE = "BOOK_TITLE"
         const val BOOK_AUTHOR = "BOOK_AUTHOR"
         const val BOOK_DESCRIPTION = "BOOK_DESCRIPTION"

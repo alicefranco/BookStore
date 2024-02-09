@@ -19,7 +19,8 @@ val bookListPresentationModule = module {
 
     viewModel {
         BookDetailsViewModel(
-            //favoritesUseCase = get(),
+            scheduler = get(),
+            booksUseCase = get()
         )
     }
 }
