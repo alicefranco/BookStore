@@ -44,7 +44,6 @@ The following libraries were used:
 - RxJava (reactive)
 - Retrofit and OKHTTP (network requests)
 - Koin (dependency injection)
-- Kotlin serialization (JSON serialization)
 - Live Data and ViewModel (ui state management)
 
 Possible improvements: 
