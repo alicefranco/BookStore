@@ -12,6 +12,8 @@
 
     <string name="button_close_desc">Close button</string>
     <string name="button_favorite_desc">Favorite button</string>
+    <string name="book_placeholder">Book image</string>
+    <string name="fab_icon">Heart image</string>
     <string name="image_desc">Image</string>
 
     <string name="button_yes">YES</string>

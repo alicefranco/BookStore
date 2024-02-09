@@ -2,117 +2,71 @@ package pt.pprojects.bookstorelist.mappers
 
 import org.junit.Test
 
-import pt.pprojects.bookstorelist.domain.model.Pokemon
 import org.assertj.core.api.Assertions.assertThat
-import pt.pprojects.bookstorelist.R
-import pt.pprojects.bookstorelist.domain.model.PokemonCharacteristics
-import pt.pprojects.bookstorelist.domain.model.PokemonImages
-import pt.pprojects.bookstorelist.domain.model.PokemonType
+import pt.pprojects.bookstorelist.domain.model.Book
 import pt.pprojects.bookstorelist.presentation.mapper.BookDomainPresentationMapper
 import pt.pprojects.bookstorelist.presentation.model.*
 
 class BookDomainPresentationMapperTest {
 
-    private val pokemonDomainPresentationMapper = BookDomainPresentationMapper()
+    private val bookDomainPresentationMapper = BookDomainPresentationMapper()
 
     @Test
-    fun `should return domain pokemons list`() {
-        val result = pokemonDomainPresentationMapper
-            .mapBooksToPresentation(pokemonsDomain)
+    fun `should return domain books list`() {
+        val result = bookDomainPresentationMapper
+            .mapBooksToPresentation(booksDomain)
 
-        assertThat(result).isEqualTo(expectedPokemonsPresentation)
+        assertThat(result).isEqualTo(expectedBooksPresentation)
     }
 
     @Test
     fun `should return empty list`() {
-        val result = pokemonDomainPresentationMapper
-            .mapBooksToPresentation(pokemonsDomainEmpty)
+        val result = bookDomainPresentationMapper
+            .mapBooksToPresentation(booksDomainEmpty)
 
-        assertThat(result).isEqualTo(emptyList<PokemonItem>())
+        assertThat(result).isEqualTo(emptyList<BookItem>())
     }
 
-    @Test
-    fun `should return domain pokemon characteristics`() {
-        val result = pokemonDomainPresentationMapper
-            .mapPokemonDetailsToPresentation(pokemonCharsDomain)
 
-        assertThat(result).isEqualTo(expectedPokemonCharsPresentation)
-    }
-
-    private val pokemonsDomain = listOf(
-        Pokemon(
-            pokemonName = "Charmander",
-            pokemonId = 4
+    private val expectedBooksPresentation = listOf(
+        BookItem(
+            authors = listOf("Alice", "Bob"),
+            title = "Alice in Wonderland",
+            id = "abcdefg1234567",
+            image = "http://www.google.com/image1",
+            description = "Lorem ipsum",
+            buyLink = "http://www.google.com/link1"
         ),
-        Pokemon(
-            pokemonName = "Charmeleon",
-            pokemonId = 5
+        BookItem(
+            authors = listOf("Alice", "Bob"),
+            title = "Unicorns",
+            id = "abcdefg1234567",
+            image = "http://www.google.com/image2",
+            description = "Lorem ipsum",
+            buyLink = "http://www.google.com/link2"
         )
     )
 
-    private val expectedPokemonsPresentation = listOf(
-        PokemonItem(
-            itemType = ListItem.LIST_ITEM,
-            name = "Charmander",
-            number = "4",
-            image = "ic_4"
+    private val booksDomain = listOf(
+        Book(
+            authors = listOf("Alice", "Bob"),
+            title = "Alice in Wonderland",
+            id = "abcdefg1234567",
+            image = "http://www.google.com/image1",
+            description = "Lorem ipsum",
+            buyLink = "http://www.google.com/link1"
         ),
-        PokemonItem(
-            itemType = ListItem.LIST_ITEM,
-            name = "Charmeleon",
-            number = "5",
-            image = "ic_5"
+        Book(
+            authors = listOf("Alice", "Bob"),
+            title = "Unicorns",
+            id = "abcdefg1234567",
+            image = "http://www.google.com/image2",
+            description = "Lorem ipsum",
+            buyLink = "http://www.google.com/link2"
         )
     )
 
-    private val pokemonsDomainEmpty = listOf<Pokemon>()
+    private val booksDomainEmpty = listOf<Book>()
 
-    private val pokemonCharsDomain = PokemonCharacteristics(
-        pokemonId = 4,
-        pokemonName = "charmander",
-        baseExperience = 50,
-        types = listOf(
-            PokemonType(
-                typeId = 1,
-                typeName = "fire"
-            )
-        ),
-        height = 5,
-        weight = 15,
-        moves = listOf(),
-        abilities = listOf(),
-        images = PokemonImages(
-            pokemonId = 4,
-            frontDefault = "",
-            backDefault = null,
-            frontFemale = null,
-            backFemale = null,
-            frontShiny = null,
-            backShiny = null,
-            frontFemaleShiny = null,
-            backFemaleShiny = null
-        )
-    )
 
-    private val expectedPokemonCharsPresentation = PokemonDetails(
-        pokemonNumber = "#4",
-        pokemonName = "Charmander",
-        baseExperience = "50",
-        types = listOf(
-            TypeItem(
-                name = "FIRE",
-                image = R.drawable.ic_fire
-            )
-        ),
-        height = "0.5m",
-        weight = "1.5Kg",
-        moves = listOf(),
-        abilities = listOf(),
-        images = PokemonImagesResources(
-            frontDefault = "",
-            frontFemale = null,
-            frontShiny = null,
-            frontFemaleShiny = null
-        )
-    )
 }

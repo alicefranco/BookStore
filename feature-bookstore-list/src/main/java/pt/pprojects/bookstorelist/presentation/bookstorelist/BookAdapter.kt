@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import pt.pprojects.bookstorelist.databinding.ItemBookBinding
 import pt.pprojects.bookstorelist.domain.model.Book
 import pt.pprojects.bookstorelist.presentation.model.BookItem
 import pt.pprojects.bookstorelist.presentation.setOptionalImage

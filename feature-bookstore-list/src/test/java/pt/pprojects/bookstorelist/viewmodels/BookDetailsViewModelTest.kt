@@ -1,7 +1,8 @@
 package pt.pprojects.bookstorelist.viewmodels
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import io.reactivex.rxjava3.core.Single
+import io.reactivex.rxjava3.core.Completable
+import io.reactivex.rxjava3.core.Maybe
 import io.reactivex.rxjava3.schedulers.Schedulers
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Before
@@ -10,15 +11,9 @@ import org.junit.Test
 import org.mockito.Mockito.`when`
 import org.mockito.Mockito.mock
 import org.mockito.junit.MockitoJUnit
-import pt.pprojects.domain.Result
-import pt.pprojects.network.error.NetworkingError
-import pt.pprojects.bookstorelist.R
-import pt.pprojects.bookstorelist.domain.model.PokemonCharacteristics
-import pt.pprojects.bookstorelist.domain.model.PokemonImages
-import pt.pprojects.bookstorelist.domain.model.PokemonType
+import pt.pprojects.bookstorelist.domain.model.Book
 import pt.pprojects.bookstorelist.domain.repository.BookRepositoryInterface
-import pt.pprojects.bookstorelist.domain.usecase.BookDetailsUseCase
-import pt.pprojects.bookstorelist.presentation.mapper.BookDomainPresentationMapper
+import pt.pprojects.bookstorelist.domain.usecase.BooksUseCase
 import pt.pprojects.bookstorelist.presentation.bookdetails.BookDetailsViewModel
 
 class BookDetailsViewModelTest {
@@ -28,104 +23,65 @@ class BookDetailsViewModelTest {
     @get:Rule
     val instantExecutorRule = InstantTaskExecutorRule()
 
-    private val pokemonRepository: BookRepositoryInterface =
+    private val bookRepository: BookRepositoryInterface =
         mock(BookRepositoryInterface::class.java)
 
-    private lateinit var pokemonCharsUsecases: BookDetailsUseCase
-    private lateinit var pokemonDetailsViewModel: BookDetailsViewModel
-    private val pokemonDomainPresentationMapper = BookDomainPresentationMapper()
+    private lateinit var booksUsecases: BooksUseCase
+    private lateinit var bookDetailsViewModel: BookDetailsViewModel
 
     @Before
     fun `before each test`() {
-        pokemonCharsUsecases = BookDetailsUseCase(pokemonRepository)
+        booksUsecases = BooksUseCase(bookRepository)
 
-        pokemonDetailsViewModel = BookDetailsViewModel(
+        bookDetailsViewModel = BookDetailsViewModel(
             Schedulers.trampoline(),
-            pokemonCharsUsecases,
-            pokemonDomainPresentationMapper
+            booksUsecases
         )
     }
 
     @Test
-    fun `get pokemon characteristics should return pokemon characteristics`() {
+    fun `isFavourite should return true`() {
         `when`(
-            pokemonRepository
-                .getPokemonCharacteristics(false, pokemonCharsDomain.pokemonId)
-        ).thenReturn(Single.just(pokemonCharsDomain))
+            bookRepository.getBook("abcdefg1234567")
+        ).thenReturn(Maybe.just(book))
 
-        pokemonDetailsViewModel.getPokemonDetails(pokemonCharsDomain.pokemonId)
+        bookDetailsViewModel.isFavourite("abcdefg1234567")
 
-        assertThat(pokemonDetailsViewModel.pokemonDetails.value)
-            .isEqualTo(
-                Result.Success(
-                    expectedPokemonCharsPresentation
-                )
-            )
+        assertThat(bookDetailsViewModel.isFavourite.value)
+            .isEqualTo(true)
     }
 
     @Test
-    fun `get pokemon characteristics should return error`() {
+    fun `markAsFavourite should return isFavourite as false`() {
         `when`(
-            pokemonRepository
-                .getPokemonCharacteristics(false, pokemonCharsDomain.pokemonId)
-        ).thenReturn(Single.error(NetworkingError.ConnectionTimeout))
+            bookRepository.markAsFavourite(book)
+        ).thenReturn(Completable.complete())
 
-        pokemonDetailsViewModel.getPokemonDetails(pokemonCharsDomain.pokemonId)
+        bookDetailsViewModel.markAsFavorite(book)
 
-        assertThat(pokemonDetailsViewModel.pokemonDetails.value)
-            .isEqualToComparingFieldByField(
-                Result.Error(
-                    NetworkingError.ConnectionTimeout
-                )
-            )
+        assertThat(bookDetailsViewModel.isFavourite.value)
+            .isEqualTo(true)
     }
 
-    private val pokemonCharsDomain = PokemonCharacteristics(
-        pokemonId = 4,
-        pokemonName = "charmander",
-        baseExperience = 50,
-        types = listOf(
-            PokemonType(
-                typeId = 1,
-                typeName = "fire"
-            )
-        ),
-        height = 5,
-        weight = 15,
-        moves = listOf(),
-        abilities = listOf(),
-        images = PokemonImages(
-            pokemonId = 4,
-            frontDefault = "",
-            backDefault = null,
-            frontFemale = null,
-            backFemale = null,
-            frontShiny = null,
-            backShiny = null,
-            frontFemaleShiny = null,
-            backFemaleShiny = null
-        )
+    @Test
+    fun `removeFavorite should return isFavourite as false`() {
+        `when`(
+            bookRepository.removeFavourite(book)
+        ).thenReturn(Completable.complete())
+
+        bookDetailsViewModel.removeFavourite(book)
+
+        assertThat(bookDetailsViewModel.isFavourite.value)
+            .isEqualTo(false)
+    }
+
+    private val book = Book(
+        authors = listOf("Author3", "Author4"),
+        title = "Title",
+        id = "abcdefg1234567",
+        image =  "http://www.google.com/thumbnail2.png",
+        description = "Description",
+        buyLink = "http://www.google.com/link2"
     )
 
-    private val expectedPokemonCharsPresentation = PokemonDetails(
-        pokemonNumber = "#4",
-        pokemonName = "Charmander",
-        baseExperience = "50",
-        types = listOf(
-            TypeItem(
-                name = "FIRE",
-                image = R.drawable.ic_fire
-            )
-        ),
-        height = "0.5m",
-        weight = "1.5Kg",
-        moves = listOf(),
-        abilities = listOf(),
-        images = PokemonImagesResources(
-            frontDefault = "",
-            frontFemale = null,
-            frontShiny = null,
-            frontFemaleShiny = null
-        )
-    )
 }
